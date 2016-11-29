@@ -97,5 +97,5 @@ newHD <-function(n){
   return(X)
 }
 
-hd <- HD(observationsNum)
+#hd <- HD(observationsNum)
 
