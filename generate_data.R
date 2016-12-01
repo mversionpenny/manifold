@@ -122,7 +122,7 @@ openbox <- function(n = 5000, noise = 0.02, plot.3D = T){
   X <- rbind(base,s1,s2,s3,s4,top) + noise*rnorm(n)
   X <- X[order(X[,3]), ]
   
-  scatter3D(X[,1],X[,2],X[,3], phi= 35, theta= -35, colvar = t, colkey=F, pch=16, 
+  scatter3D(X[,1],X[,2],X[,3], phi= 35, theta= -35, colvar = X[,3], colkey=F, pch=16, 
             bty = "b2", ticktype = "detailed", scale = F,
             xlim = c(-7, 17), ylim = c(-7,7), zlim = c(-2,12), xlab= "", ylab="", zlab="")
   
@@ -132,4 +132,4 @@ openbox <- function(n = 5000, noise = 0.02, plot.3D = T){
    
   return(X)
 }
-#openbox <- openbox()
+openbox <- openbox()
