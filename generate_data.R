@@ -7,17 +7,21 @@ new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"
 if(length(new.packages)) install.packages(new.packages, repos = "http://cran.rstudio.com/")
 library(rgl)
 library(plot3D)
+plot.path = "plots\\artificial_data"
 
 #### Swiss ROll ####
-swissroll <- function(n = 5000, noise = 0.05, plot.3D = T){
+swissroll <- function(n = 5000, noise = 0.05, plot.3D = T, plot.file = NULL){
   p <- sort(runif(n))
   q <- runif(n)
   t <- 3*pi/2 * (1 + 2*p)
   X <- cbind(t*cos(t), t*sin(t), 30*q) + noise * rnorm(n)
   
+  if (!is.null(plot.file))
+    png(file = plot.file,  bg = "transparent")
   scatter3D(X[,3],X[,1],X[,2], phi= 15, theta=60, colvar = t, colkey=F, pch=16, 
             bty = "b2", ticktype = "detailed", scale = F,
             xlim = c(-5,35), ylim = c(-15,15), zlim = c(-10,15), xlab= "", ylab="", zlab="")
+  dev.off()
   
   if (plot.3D)
     plot3d(X[,3],X[,1],X[,2], type="p",aspect =TRUE, col=jet.col(n),
@@ -25,12 +29,13 @@ swissroll <- function(n = 5000, noise = 0.05, plot.3D = T){
   
   return(X)
 }
-#swiss <- swissroll()
+#swiss <- swissroll(plot.3D = F, plot.file = file.path(plot.path, "swiss.png"))
+#write.table(swiss,file = "data\\swissRoll.txt", sep = "\t", col.names = F, row.names = F)
 
 
 #### Broken Swiss Roll ####
 #colors is correcly broken too
-brokenSwissroll <- function(n = 5000, noise = 0.05, n.break = 500, plot.3D = T){
+brokenSwissroll <- function(n = 5000, noise = 0.05, n.break = 500, plot.3D = T, plot.file = NULL){
   p <- sort(runif(n+n.break))
   q <- runif(n)
   t <- 3*pi/2 * (1 + 2*p)
@@ -41,9 +46,12 @@ brokenSwissroll <- function(n = 5000, noise = 0.05, n.break = 500, plot.3D = T){
   colors <- colors[-c(begin.break:(begin.break+n.break-1))]
   X <- cbind(t*cos(t), t*sin(t), 30*q) + noise * rnorm(n)
   
+  if (!is.null(plot.file))
+    png(file = plot.file,  bg = "transparent")
   scatter3D(X[,3],X[,1],X[,2], phi= 15, theta=60, colvar = t, colkey=F, pch=16, 
             bty = "b2", ticktype = "detailed", scale = F,
             xlim = c(-5,35), ylim = c(-15,15), zlim = c(-10,15), xlab= "", ylab="", zlab="")
+  dev.off()
   
   if (plot.3D)
     plot3d(X[,3],X[,1],X[,2], type="p",aspect =TRUE, col=jet.col(n),
@@ -51,17 +59,24 @@ brokenSwissroll <- function(n = 5000, noise = 0.05, n.break = 500, plot.3D = T){
   
   return(X)
 }
-#broken.swiss <- brokenSwissroll()
+#brokenswiss <- brokenSwissroll(plot.3D = F,
+#                               plot.file = file.path(plot.path,
+#                                                     "brokenSwissRoll.png"))
+#write.table(brokenswiss,file = "data\\brokenSwissRoll.txt", sep = "\t",
+#            col.names = F, row.names = F)
 
 #### Helix ####
-helix <- function(n = 5000, noise = 0.05, plot.3D=T){
+helix <- function(n = 5000, noise = 0.05, plot.3D=T, plot.file = NULL){
   t <- (1:n)/n
   t <- t * 2 * pi
   X <- cbind((2+cos(8*t))*cos(t), (2+cos(8*t))*sin(t), sin(8*t)) + noise * rnorm(n)
   
+  if (!is.null(plot.file))
+    png(file = plot.file,  bg = "transparent")
   scatter3D(X[,1],X[,2],X[,3], phi= 15, theta=60, colvar = t, colkey=F, pch=20, 
             bty = "b2", ticktype = "detailed", scale = F,
             xlim = c(-3, 3), ylim = c(-3,3), zlim = c(-1.5,1.5), xlab= "", ylab="", zlab="")
+  dev.off()
   
   if (plot.3D)
     plot3d(X[,1],X[,2],X[,3], type="p",aspect=c(2,1,1), col=jet.col(n),
@@ -69,18 +84,25 @@ helix <- function(n = 5000, noise = 0.05, plot.3D=T){
 
   return(X)
 }
-#helix.data <- helix()
+# helix.data <- helix(plot.3D = F,
+#                               plot.file = file.path(plot.path,
+#                                                     "helix.png"))
+# write.table(helix.data,file = "data\\helix.txt", sep = "\t",
+#            col.names = F, row.names = F)
 
 #### Twinpeaks ####
-twinpeaks <- function(n = 5000, noise= 0.02, plot.3D=T){
+twinpeaks <- function(n = 5000, noise= 0.02, plot.3D=T, plot.file = NULL){
   p <- runif(n)
   q <- runif(n)
   X <- cbind(1-2*p, 1-2*q, sin(pi - 2*pi*p) * tanh(3 - 6*q)) + noise * rnorm(n)
   X<- X[order(X[,3]),]
   
-  scatter3D(X[,1],X[,2],X[,3], phi= 35, theta= -35, colvar = t, colkey=F, pch=16, 
+  if (!is.null(plot.file))
+    png(file = plot.file,  bg = "transparent")
+  scatter3D(X[,1],X[,2],X[,3], phi= 35, theta= -35, colvar = X[,3], colkey=F, pch=16, 
             bty = "b2", ticktype = "detailed", scale = F,
             xlim = c(-1.2,1.2), ylim = c(-1.2,1.2), zlim = c(-1.2,1.2), xlab= "", ylab="", zlab="")
+  dev.off()
   
   if (plot.3D)
     plot3d(X[,1],X[,2],X[,3], type="p",aspect=c(1,1,1), col=jet.col(n),
@@ -88,7 +110,11 @@ twinpeaks <- function(n = 5000, noise= 0.02, plot.3D=T){
   
   return(X)
 }
-#twins <- twinpeaks()
+# twins <- twinpeaks(plot.3D = F,
+#                     plot.file = file.path(plot.path,
+#                                           "twinpeaks.png"))
+# write.table(twins,file = "data\\twinpeaks.txt", sep = "\t",
+#             col.names = F, row.names = F)
 
 #### HD ####
 
@@ -106,7 +132,7 @@ HD <-function(n = 5000){
 
 #### Open box ####
 
-openbox <- function(n = 5000, noise = 0.02, plot.3D = T){
+openbox <- function(n = 5000, noise = 0.02, plot.3D = T, plot.file = NULL){
   nb_per_side = n %/% 6
   nb_in_base = n - nb_per_side*5
   #base
@@ -122,9 +148,12 @@ openbox <- function(n = 5000, noise = 0.02, plot.3D = T){
   X <- rbind(base,s1,s2,s3,s4,top) + noise*rnorm(n)
   X <- X[order(X[,3]), ]
   
+  if (!is.null(plot.file))
+    png(file = plot.file,  bg = "transparent")
   scatter3D(X[,1],X[,2],X[,3], phi= 35, theta= -35, colvar = X[,3], colkey=F, pch=16, 
             bty = "b2", ticktype = "detailed", scale = F,
             xlim = c(-7, 17), ylim = c(-7,7), zlim = c(-2,12), xlab= "", ylab="", zlab="")
+  dev.off()
   
   if (plot.3D)
     plot3d(X[,1],X[,2],X[,3], type="p",aspect=c(2,1,1), col=jet.col(n),
@@ -132,4 +161,8 @@ openbox <- function(n = 5000, noise = 0.02, plot.3D = T){
    
   return(X)
 }
-openbox <- openbox()
+# open <- openbox(plot.3D = F,
+#                     plot.file = file.path(plot.path,
+#                                           "openBox.png"))
+# write.table(open,file = "data\\openBox.txt", sep = "\t",
+#             col.names = F, row.names = F)
