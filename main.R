@@ -32,8 +32,9 @@ openBox <- read.table("data/openBox.txt", sep = "\t")
 source("optimize_parameters.R")
 
 ## using 4 cores :
+library(vegan)
 cl <- makeCluster(4)
-clusterExport(cl)
+clusterExport(cl, list("isomap"))
 
 ## Run on 2 seperated computers
 test1 = c(10, 15, 25, 50) #margot
@@ -41,8 +42,8 @@ test2 = c(5, 20, 30, 40) #thu
 
 ## Swiss Roll
 d_swiss <- dist(swissRoll)
-# optimize_k_isomap(d_swiss, test1) 
-optimize_k_isomap(d_swiss, test2)
+optimize_k_isomap(d_swiss, 2,test1) 
+#optimize_k_isomap(d_swiss, test2)
 
 stopCluster(cl)
 
