@@ -7,7 +7,7 @@ new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"
 if(length(new.packages)) install.packages(new.packages, repos = "http://cran.rstudio.com/")
 library(rgl)
 library(plot3D)
-plot.path = "plots\\artificial_data"
+plot.path = "plots/artificial_data"
 
 #### Swiss ROll ####
 swissroll <- function(n = 5000, noise = 0.05, plot.3D = T, plot.file = NULL){
