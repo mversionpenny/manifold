@@ -9,3 +9,16 @@ optimize_k_isomap <- function(distances, ndim = 2, test_k, dataname){
       dev.off()
     }
 }
+
+optimize_k_lle <- function(data, ndim = 2, test_k, dataname){
+  dir.create(file.path("plots", paste("test_lle_", dataname, sep='')), showWarnings = FALSE)
+    
+  foreach(i= test_k) %dopar% {
+      require(lle)
+      lle <- lle(data, ndim=2, k=i)
+      png(file = file.path("plots", paste("test_lle_", dataname, sep=''), paste("k", i, ".png", sep="")),  bg = "transparent")
+      # TODO : find a way to know what is the differenes between the ks. Maybe (plot_lle(lle.k$Y, lle.k$X))
+      dev.off()
+    }
+}
+
