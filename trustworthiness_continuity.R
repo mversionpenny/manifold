@@ -3,6 +3,7 @@
 #------------------------------ 2016/2017 ------------------------------
 
 # install.packages("RANN")
+# install.packages("dendextend")
 library(RANN)
 trustworthiness <- function(k, HD_data, LD_data){
   
@@ -12,6 +13,7 @@ trustworthiness <- function(k, HD_data, LD_data){
   hd.ngh <- nn2(HD_data, k=k)
   print("getting ld neighborhoods")
   ld.ngh <- nn2(LD_data, k=k)
+  distances <- dist(LD_data)
   
   sum <- 0
   for (i in 1:n){

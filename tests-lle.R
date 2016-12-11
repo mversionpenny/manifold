@@ -17,7 +17,7 @@ library(lle)
 swissRoll <- read.table("data/swissRoll.txt", sep = "\t")
 
 # with k :
-lle.k <- lle(swissRoll, m=2, k=10)
+lle.k <- lle(swissRoll, m=2, k=20)
 
 # with epsilon /!\ be careful, nnk must be FALSE
 lle.eps <- lle(swissRoll, m=2, nnk=FALSE, eps=0.1)
