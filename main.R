@@ -50,7 +50,19 @@ clusterExport(cl, list())
 registerDoParallel(nb_cores)
 
 ## Swiss Roll
+# optimize_k_isomap(d_swiss, 2, test, "swissRoll")
+
+## Broken Swiss Roll
 optimize_k_isomap(d_broken, 2, test, "brokenSwissRoll")
+
+## Helix
+optimize_k_isomap(d_helix, 2, test, "helix")
+
+## Twinpeaks
+optimize_k_isomap(d_twins, 2, test, "twinpeaks")
+
+## Open Box
+optimize_k_isomap(d_open, 2, test, "openBox")
 
 
 stopCluster(cl)
