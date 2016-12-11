@@ -15,9 +15,12 @@ setwd(this.dir)
 # install.packages("lle")
 library(lle)
 swissRoll <- read.table("data/swissRoll.txt", sep = "\t")
-
+helix <- read.table("data/helix.txt", sep = "\t")
 # with k :
-lle.k <- lle(swissRoll, m=2, k=20)
+lle.k.swissroll <- lle(swissRoll, m=2, k=20)
+lle.k.helix <- lle(helix, m=2, k=20)
+write.table(lle.k.swissroll$Y,file = "swissroll-lle.txt", sep = "\t", col.names = F, row.names = F)
+write.table(lle.k.helix$Y,file = "helix-lle.txt", sep = "\t", col.names = F, row.names = F)
 
 # with epsilon /!\ be careful, nnk must be FALSE
 lle.eps <- lle(swissRoll, m=2, nnk=FALSE, eps=0.1)
