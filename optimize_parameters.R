@@ -121,12 +121,12 @@ for (name in data_name){
   if (name == "helix")  m = 1
   else m = 2
   x_lle <- lle(get(name), m, k_opt)
-  save(x_lle, file = file.path("data", "lle", paste(dataname, "_k", k_opt, ".RData", sep="")))
+  save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
   if (k_opt>15){
     k_opt <- test_k$k[which(test_k$rho == min(test_k$rho[1:11]))]
     x_lle <- lle(get(name), m, k_opt)
-    save(x_lle, file = file.path("data", "lle", paste(dataname, "_k", k_opt, ".RData", sep="")))
-  }
+    save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+  }          
 }
 
 
