@@ -110,11 +110,11 @@ twinpeaks <- function(n = 5000, noise= 0.02, plot.3D=T, plot.file = NULL){
   
   return(X)
 }
-twins <- twinpeaks(plot.3D = T,
-                     plot.file = file.path(plot.path,
-                                           "twinpeaks.png"))
-write.table(twins,file = "data\\twinpeaks.txt", sep = "\t",
-            col.names = F, row.names = F)
+# twins <- twinpeaks(plot.3D = T,
+#                      plot.file = file.path(plot.path,
+#                                            "twinpeaks.png"))
+# write.table(twins,file = "data\\twinpeaks.txt", sep = "\t",
+#             col.names = F, row.names = F)
 
 #### HD ####
 

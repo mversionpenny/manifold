@@ -1,14 +1,11 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
-list.of.packages <- c("rstudioapi", "doParallel", "foreach", "vegan", "parallel")
+list.of.packages <- c("rstudioapi", "png")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos = "http://cran.rstudio.com/")
 library(rstudioapi)
-library(doParallel)
-library(foreach)
-library(vegan)
-library(parallel)
+library(png)
 
 rm(list=ls())
 
@@ -36,35 +33,33 @@ d_twins <- dist(twinpeaks)
 openBox <- read.table("data/openBox.txt", sep = "\t")
 d_open <- dist(openBox)
 
+#### Read the real data ####
+data_path <- file.path("data", "real_data_image")
+list_folder <- list.files(data_path)
+row_names <- c()
+for (folder in list_folder){
+  list_files <- list.files(file.path(data_path,folder))
+  for (i in 1:length(list_files)){
+    row_names <- c(row_names, paste(folder, "_", i, sep=""))
+    img <- readPNG(file.path(data_path,folder,list_files[i]))
+    img <- as.vector(img)
+    if (!exists("real")){
+      real <- img
+    }
+    else{
+      real <- rbind(real, img)
+    }  
+  }
+}
+real <- as.data.frame(real)
+rownames(real) <- row_names
+
+d <- dist(real)
+test <- sammon(d)
+plot(test$points, type ="n")
+text(test$points, labels = row_names)
 #### Optimize the parameters ####
 ## ATTENTION: Take a lot of time. Run only once.
-
+## Result objects are all saved in order to save time of calculation later
 source("optimize_parameters.R")
-
-test = c(5,10,15,20,25,30,40)
-
-## Create cluster :
-nb_cores <- detectCores() - 1 
-cl <- makeCluster(nb_cores)
-clusterExport(cl, list())
-registerDoParallel(nb_cores)
-
-## Swiss Roll
-# optimize_k_isomap(d_swiss, 2, test, "swissRoll")
-
-## Broken Swiss Roll
-optimize_k_isomap(d_broken, 2, test, "brokenSwissRoll")
-
-## Helix
-optimize_k_isomap(d_helix, 2, test, "helix")
-
-## Twinpeaks
-optimize_k_isomap(d_twins, 2, test, "twinpeaks")
-
-## Open Box
-optimize_k_isomap(d_open, 2, test, "openBox")
-
-
-stopCluster(cl)
-
 
