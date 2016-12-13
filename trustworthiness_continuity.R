@@ -3,15 +3,16 @@
 #------------------------------ 2016/2017 ------------------------------
 
 # install.packages("RANN")
-
-library(RANN)
-trustworthiness <- function(k, HD_data, LD_data){
   
-  n <- nrow(HD_data)
-  print("getting hd neighborhoods")
-  hd.ngh <- nn2(HD_data, k=n)
+library(RANN)
+
+# trustworthiness take hd.ngh as a argument so that we compute it once
+trustworthiness <- function(k, hd.ngh, ld.data){
+  
+  n <- nrow(hd.ngh$nn.idx)
+  
   print("getting ld neighborhoods")
-  ld.ngh <- nn2(LD_data, k=k)
+  ld.ngh <- nn2(ld.data, k=k)
   
   sum <- 0
   for (i in 1:n){
@@ -29,12 +30,12 @@ trustworthiness <- function(k, HD_data, LD_data){
   return(result)
 }
 
-continuity <- function(k, HD_data, LD_data){
-  n <- nrow(HD_data)
+continuity <- function(k, hd.data, ld.data){
+  n <- nrow(hd.data)
   print("getting hd neighborhoods")
-  hd.ngh <- nn2(HD_data, k=k)
+  hd.ngh <- nn2(hd.data, k=k)
   print("getting ld neighborhoods")
-  ld.ngh <- nn2(LD_data, k=n)
+  ld.ngh <- nn2(ld.data, k=n)
   
   sum <- 0
   for (i in 1:n){

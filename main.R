@@ -48,7 +48,7 @@ for (folder in list_folder){
     }
     else{
       real <- rbind(real, img)
-    }  
+    }
   }
 }
 real <- as.data.frame(real)
@@ -61,5 +61,5 @@ text(test$points, labels = row_names)
 #### Optimize the parameters ####
 ## ATTENTION: Take a lot of time. Run only once.
 ## Result objects are all saved in order to save time of calculation later
-source("optimize_parameters.R")
-
+#source("optimize_parameters.R")
+source("final_results.R")
