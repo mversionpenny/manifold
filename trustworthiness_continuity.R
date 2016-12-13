@@ -3,7 +3,7 @@
 #------------------------------ 2016/2017 ------------------------------
 
 # install.packages("RANN")
-# install.packages("dendextend")
+
 library(RANN)
 trustworthiness <- function(k, HD_data, LD_data){
   
