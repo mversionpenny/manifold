@@ -13,28 +13,35 @@ best_iso <- c(65, 65, 40, 65, 5)
 best_lle <- c(7, 65, 13 , 11 , 11)
 data_name <- c("helix", "brokenSwissRoll", "swissRoll", "twinpeaks", "openBox")
 short_name <- c("helix", "broken", "swiss", "twins", "open")
-for (i in 3:length(data_name)){
+
+## Sammon
+for (i in 1:length(data_name)){
   load(file.path("data", "sammon", paste(data_name[i],".RData", sep=""))) #load sammon_[short_name]
+  if (i == 1) points <- get(paste("sammon",short_name[i], sep="_"))$points[,1]
+  else points <- get(paste("sammon",short_name[i], sep="_"))$points
   png(filename = file.path("plots", "results_sammon", paste(data_name[i], ".png", sep="")))
-  plot(get(paste("sammon",short_name[i], sep="_"))$points, col = jet.col(5000),
-       xlab="", ylab="", cex.axis=1.5)
+  plot(points, col = jet.col(5000), xlab="", ylab="", cex.axis=1.5)
   dev.off()
 }
 
-load(file.path("data", "sammon", "helix.RData")) #load sammon_helix
-png(filename = file.path("plots", "results_sammon", "helix.png"))
-plot(sammon_helix$points[,1], col = jet.col(5000),
-     xlab="", ylab="", cex.axis=1.5)
-dev.off()
+## isomap
+for (i in 1:length(data_name)){
+  load(file.path("data", paste("test_isomap_", data_name[i], sep=""), paste("k", best_iso[i], ".RData", sep=""))) #load x_lle
+  if (i == 1) points <- x_iso$points[,1]
+  else points <- x_iso$points
+  png(filename = file.path("plots", "results_isomap", paste(data_name[i], ".png", sep="")))
+  plot(points, col = jet.col(5000), xlab="", ylab="", cex.axis=1.5)
+  dev.off()
+}
 
-
-load(file.path("data", "sammon", "brokenSwissRoll.RData")) #load sammon_broken
-png(filename = file.path("plots", "results_sammon", "brokenSwissRoll.png"))
-plot(sammon_broken$points, col = jet.col(5000),
-     xlab="", ylab="", cex.axis=1.5)
-dev.off()
-
-
+## lle
+for (i in 1:length(data_name)){
+  load(file.path("data", "lle", paste(data_name[i], '_k', best_lle[i], ".RData", sep=""))) #load x_lle
+  points <- x_lle$Y
+  png(filename = file.path("plots", "results_lle", paste(data_name[i], ".png", sep="")))
+  plot(points, col = jet.col(5000), xlab="", ylab="", cex.axis=1.5)
+  dev.off()
+}
 
 #### Real data ####
 classes <- c("apple", "car", "cow", "cup", "dog", "horse", "pear", "tomato")

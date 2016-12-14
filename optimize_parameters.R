@@ -19,30 +19,40 @@ optimize_k_isomap <- function(distances, ndim = 2, test_k, dataname){
     
   foreach(i= test_k) %dopar% {
       require(vegan)
-      x_iso <- isomap(distances, ndim=2, k=i)
+      x_iso <- isomap(distances, ndim=ndim, k=i)
       save(x_iso, file = file.path("data", paste("test_isomap_", dataname, sep=''), paste("k", i, ".RData", sep="")))
       png(file = file.path("plots", paste("test_isomap_", dataname, sep=''), paste("k", i, ".png", sep="")),  bg = "transparent")
-      barplot(x_iso$eig[1:10], main = paste("Inertie = ", sum(abs(x_iso$eig[1:2]))/sum(abs(x_iso$eig)), sep=""))
+      barplot(x_iso$eig[1:10], main = paste("Inertie = ", sum(abs(x_iso$eig[1:i]))/sum(abs(x_iso$eig)), sep=""))
       dev.off()
     }
 }
 
-# test <- c(seq(5,15),20,25,30,35)
+test <- c(seq(5,15),20,25,30,35)
 # test_real <- c(5:25)
-# nb_cores <- 7
-# cl <- makeCluster(nb_cores)
-# clusterExport(cl, list())
-# registerDoParallel(nb_cores)
+nb_cores <- 7
+cl <- makeCluster(nb_cores)
+clusterExport(cl, list())
+registerDoParallel(nb_cores)
 # # 
 # optimize_k_isomap(d_swiss, 2, test, "swissRoll")
-# optimize_k_isomap(d_helix, 2, test, "helix")
+optimize_k_isomap(d_helix, 1, test, "helix")
 # optimize_k_isomap(d_twins, 2, test, "twinpeaks")
 # optimize_k_isomap(d_open, 2, test, "openBox")
-optimize_k_isomap(d_seg, 2, test_real, "real_seg")
-optimize_k_isomap(d_grey, 2, test_real, "real_grey")
-optimize_k_isomap(d_color, 2, test_real, "real_color")
 # 
-# stopCluster(cl)
+# optimize_k_isomap(d_seg, 2, test_real, "real_seg")
+# optimize_k_isomap(d_grey, 2, test_real, "real_grey")
+# optimize_k_isomap(d_color, 2, test_real, "real_color")
+# 
+stopCluster(cl)
+
+
+test <- seq(40,80,5)
+nb_cores <- 3
+cl <- makeCluster(nb_cores)
+clusterExport(cl, list())
+registerDoParallel(nb_cores)
+optimize_k_isomap(d_helix, 1, test, "helix")
+stopCluster(cl)
 
 ## Sequential:
 # for higher k
@@ -53,10 +63,10 @@ optimize_k_isomap_seq <- function(distances, ndim = 2, test_k, dataname){
   for (i in test_k){
     require(vegan)
     print(i)
-    x_iso <- isomap(distances, ndim=2, k=i)
+    x_iso <- isomap(distances, ndim=ndim, k=i)
     save(x_iso, file = file.path("data", paste("test_isomap_", dataname, sep=''), paste("k", i, ".RData", sep="")))
     png(file = file.path("plots", paste("test_isomap_", dataname, sep=''), paste("k", i, ".png", sep="")),  bg = "transparent")
-    barplot(x_iso$eig[1:10], main = paste("Inertie = ", sum(abs(x_iso$eig[1:2]))/sum(abs(x_iso$eig)), sep=""))
+    barplot(x_iso$eig[1:10], main = paste("Inertie = ", sum(abs(x_iso$eig[1:i]))/sum(abs(x_iso$eig)), sep=""))
     dev.off()
   }
 }
@@ -64,7 +74,7 @@ optimize_k_isomap_seq <- function(distances, ndim = 2, test_k, dataname){
 # optimize_k_isomap_seq(d_broken, 2, seq(65,85,10) , "brokenSwissRoll")
 # test <- c(35,seq(45,80,5))
 # optimize_k_isomap_seq(d_swiss, 2, test , "swissRoll")
-# optimize_k_isomap_seq(d_helix, 2, test , "helix")
+# optimize_k_isomap_seq(d_helix,1, test , "helix")
 # optimize_k_isomap_seq(d_twins, 2, test, "twinpeaks")
 # optimize_k_isomap_seq(d_open, 2, test , "openBox")
 
@@ -93,25 +103,26 @@ optimize_k_lle <- function(data, ndim = 2, kmin, kmax, step=1, dataname, nb_core
 nb_cores <- 7
 # optimize_k_lle(swissRoll, kmin = 5, kmax = 15, step = 1, dataname = "swissRoll", nb_cores = nb_cores)
 # optimize_k_lle(helix, ndim=1, kmin = 5, kmax = 15, step = 1, dataname = "helix", nb_cores = nb_cores)
-# optimize_k_lle(twinpeaks, ndim=1, kmin = 5, kmax = 15, step = 1, dataname = "twinpeaks", nb_cores = nb_cores)
-# optimize_k_lle(openBox, ndim=1, kmin = 5, kmax = 15, step = 1, dataname = "openBox", nb_cores = nb_cores)
+optimize_k_lle(twinpeaks, kmin = 5, kmax = 15, step = 1, dataname = "twinpeaks", nb_cores = nb_cores)
+optimize_k_lle(openBox, kmin = 5, kmax = 15, step = 1, dataname = "openBox", nb_cores = nb_cores)
 # optimize_k_lle(brokenSwissRoll, kmin = 5, kmax = 15, step = 1, dataname = "brokenSwissRoll", nb_cores = nb_cores)
 
 nb_cores <- 5
 # optimize_k_lle(swissRoll, kmin = 20, kmax = 35, step = 5, dataname = "swissRoll", nb_cores = nb_cores)
 # optimize_k_lle(helix, ndim=1, kmin = 20, kmax = 35, step = 5, dataname = "helix", nb_cores = nb_cores)
-# optimize_k_lle(twinpeaks, ndim=1, kmin = 20, kmax = 35, step = 5, dataname = "twinpeaks", nb_cores = nb_cores)
-# optimize_k_lle(openBox, ndim=1, kmin = 20, kmax = 35, step = 5, dataname = "openBox", nb_cores = nb_cores)
+optimize_k_lle(twinpeaks, kmin = 20, kmax = 35, step = 5, dataname = "twinpeaks", nb_cores = nb_cores)
+optimize_k_lle(openBox, kmin = 20, kmax = 35, step = 5, dataname = "openBox", nb_cores = nb_cores)
 # optimize_k_lle(brokenSwissRoll, kmin = 20, kmax = 35, step = 5, dataname = "brokenSwissRoll", nb_cores = nb_cores)
+
 # optimize_k_lle(real_seg, kmin = 5, kmax = 25, step = 1, dataname = "real_seg", nb_cores = nb_cores)
-optimize_k_lle(real_grey, kmin = 5, kmax = 25, step = 1, dataname = "real_grey", nb_cores = nb_cores)
+# optimize_k_lle(real_grey, kmin = 5, kmax = 25, step = 1, dataname = "real_grey", nb_cores = nb_cores)
 optimize_k_lle(real_color, kmin = 5, kmax = 25, step = 1, dataname = "real_color", nb_cores = nb_cores)
 
-# nb_cores <- 2
+nb_cores <- 2
 # optimize_k_lle(swissRoll, kmin = 40, kmax = 80, step = 5, dataname = "swissRoll", nb_cores = nb_cores)
 # optimize_k_lle(helix, ndim=1, kmin = 40, kmax = 80, step = 5, dataname = "helix", nb_cores = nb_cores)
-# optimize_k_lle(twinpeaks, ndim=1, kmin = 40, kmax = 80, step = 5, dataname = "twinpeaks", nb_cores = nb_cores)
-# optimize_k_lle(openBox, ndim=1, kmin = 40, kmax = 80, step = 5, dataname = "openBox", nb_cores = nb_cores)
+optimize_k_lle(twinpeaks, kmin = 40, kmax = 80, step = 5, dataname = "twinpeaks", nb_cores = nb_cores)
+optimize_k_lle(openBox, kmin = 40, kmax = 80, step = 5, dataname = "openBox", nb_cores = nb_cores)
 # optimize_k_lle(brokenSwissRoll, kmin = 40, kmax = 80, step = 5, dataname = "brokenSwissRoll", nb_cores = nb_cores)
 
 ## Run LLE with optimal k (in general) and optimal k in [5,15] for artificial data
