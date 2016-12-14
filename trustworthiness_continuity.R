@@ -74,75 +74,71 @@ twinpeaks <- read.table("data/twinpeaks.txt", sep = "\t")
 openBox <- read.table("data/openBox.txt", sep = "\t")
 # hd.ngh.openBox<- nn2(openBox, k=n)
 
-#### Sammon Mapping ####
-
-swissRoll.sammon <- load("data/sammon/swissRoll.RData")
-swissRoll.sammon <- get(swissRoll.sammon)
-brokenSwissRoll.sammon <- load("data/sammon/brokenSwissRoll.RData")
-brokenSwissRoll.sammon <- get(brokenSwissRoll.sammon)
-helix.sammon <- load("data/sammon/helix.RData")
-helix.sammon <- get(helix.sammon)
-twinpeaks.sammon <- load("data/sammon/twinpeaks.RData")
-twinpeaks.sammon <- get(twinpeaks.sammon)
-openBox.sammon <- load("data/sammon/openBox.RData")
-openBox.sammon <- get(openBox.sammon)
-
-# trustworthiness
-trust.sammon.swissRoll <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.sammon$points)
-trust.sammon.brokenSwissRoll <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.sammon$points)
-trust.sammon.helix <- trustworthiness(K, hd.ngh.helix, helix.sammon$points[,1])
-trust.sammon.twinpeaks <- trustworthiness(K, hd.ngh.twinpeaks, twinpeaks.sammon$points)
-trust.sammon.openBox <- trustworthiness(K, hd.ngh.openBox, openBox.sammon$points)
-
-# continuity
-cont.sammon.swissRoll <- continuity(K, swissRoll, swissRoll.sammon$points)
-cont.sammon.brokenSwissRoll <- continuity(K, brokenSwissRoll, brokenSwissRoll.sammon$points)
-cont.sammon.helix <- continuity(K, helix, helix.sammon$points[,1])
-cont.sammon.twinpeaks <- continuity(K, twinpeaks, twinpeaks.sammon$points)
-cont.sammon.openBox <- continuity(K, openBox, openBox.sammon$points)
-
-#### ISOMAP ####
-
-swissRoll.isomap <- get(load("./data/test_isomap_swissRoll/k40.RData"))
-brokenSwissRoll.isomap <- get(load("./data/test_isomap_brokenSwissRoll/k65.RData"))
-helix.isomap <- get(load("./data/test_isomap_helix/k65.RData"))
-twinpeaks.isomap <- get(load("./data/test_isomap_twinpeaks/k65.RData"))
-openBox.isomap <- get(load("./data/test_isomap_openBox/k5.RData"))
-
-#trustworthiness
-trust.isomap.swissRoll <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.isomap$points)
-trust.isomap.brokenSwissRoll <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.isomap$points)
-trust.isomap.helix <- trustworthiness(K, hd.ngh.helix, helix.isomap$points[,1])
-trust.isomap.twinpeaks <- trustworthiness(K, hd.ngh.twinpeaks, twinpeaks.isomap$points)
-trust.isomap.openBox <- trustworthiness(K, hd.ngh.openBox, openBox.isomap$points)
-
-#continuity
-cont.isomap.swissRoll <- continuity(K, swissRoll, swissRoll.isomap$points)
-cont.isomap.brokenSwissRoll <- continuity(K, brokenSwissRoll, brokenSwissRoll.isomap$points)
-cont.isomap.helix <- continuity(K, helix, helix.isomap$points[,1])
-cont.isomap.twinpeaks <- continuity(K, twinpeaks, twinpeaks.isomap$points)
-cont.isomap.openBox <- continuity(K, openBox, openBox.isomap$points)
-
-#### Local Linear Embedding ####
-
-swissRoll.lle<- get(load("./data/lle/swissRoll_k13.RData"))
-brokenSwissRoll.lle <- get(load("./data/lle/brokenSwissRoll_k65.RData"))
-helix.lle <- get(load("./data/lle/helix_k7.RData"))
-twinpeaks.lle <- get(load("./data/lle/twinpeaks_k11.RData"))
-openBox.lle <- get(load("./data/lle/openBox_k11.RData"))
-
-# trustworthiness
-trust.lle.swissroll <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.lle$Y)
-trust.lle.brokenSwissroll <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.lle$Y)
-trust.lle.helix <- trustworthiness(K, hd.ngh.helix, helix.lle$Y)
-trust.lle.twinpeaks <- trustworthiness(K, hd.ngh.twinpeaks, twinpeaks.lle$Y)
-trust.lle.openBox <- trustworthiness(K, hd.ngh.openBox, openBox.lle$Y)
-
-# continuity
-
-cont.lle.swissroll <- continuity(K, swissRoll, swissRoll.lle$Y)
-cont.lle.brokenSwissroll <- continuity(K, brokenSwissRoll, brokenSwissRoll.lle$Y)
-cont.lle.helix <- continuity(K, helix, helix.lle$Y)
-cont.lle.twinpeaks <- continuity(K, twinpeaks, twinpeaks.lle$Y)
-cont.lle.openBox <- continuity(K, openBox, openBox.lle$Y)
+# #### Sammon Mapping ####
+# 
+# swissRoll.sammon <- get(load("data/sammon/swissRoll.RData"))
+# brokenSwissRoll.sammon <- get(load("data/sammon/brokenSwissRoll.RData"))
+# helix.sammon <- get(load("data/sammon/helix.RData"))
+# twinpeaks.sammon <- get(load("data/sammon/twinpeaks.RData"))
+# openBox.sammon <- get(load("data/sammon/openBox.RData"))
+# 
+# 
+# # trustworthiness
+# trust.sammon.swissRoll <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.sammon$points)
+# trust.sammon.brokenSwissRoll <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.sammon$points)
+# trust.sammon.helix <- trustworthiness(K, hd.ngh.helix, helix.sammon$points[,1])
+# trust.sammon.twinpeaks <- trustworthiness(K, hd.ngh.twinpeaks, twinpeaks.sammon$points)
+# trust.sammon.openBox <- trustworthiness(K, hd.ngh.openBox, openBox.sammon$points)
+# 
+# # continuity
+# cont.sammon.swissRoll <- continuity(K, swissRoll, swissRoll.sammon$points)
+# cont.sammon.brokenSwissRoll <- continuity(K, brokenSwissRoll, brokenSwissRoll.sammon$points)
+# cont.sammon.helix <- continuity(K, helix, helix.sammon$points[,1])
+# cont.sammon.twinpeaks <- continuity(K, twinpeaks, twinpeaks.sammon$points)
+# cont.sammon.openBox <- continuity(K, openBox, openBox.sammon$points)
+# 
+# #### ISOMAP ####
+# 
+# swissRoll.isomap <- get(load("./data/test_isomap_swissRoll/k40.RData"))
+# brokenSwissRoll.isomap <- get(load("./data/test_isomap_brokenSwissRoll/k65.RData"))
+# helix.isomap <- get(load("./data/test_isomap_helix/k65.RData"))
+# twinpeaks.isomap <- get(load("./data/test_isomap_twinpeaks/k65.RData"))
+# openBox.isomap <- get(load("./data/test_isomap_openBox/k5.RData"))
+# 
+# #trustworthiness
+# trust.isomap.swissRoll <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.isomap$points)
+# trust.isomap.brokenSwissRoll <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.isomap$points)
+# trust.isomap.helix <- trustworthiness(K, hd.ngh.helix, helix.isomap$points[,1])
+# trust.isomap.twinpeaks <- trustworthiness(K, hd.ngh.twinpeaks, twinpeaks.isomap$points)
+# trust.isomap.openBox <- trustworthiness(K, hd.ngh.openBox, openBox.isomap$points)
+# 
+# #continuity
+# cont.isomap.swissRoll <- continuity(K, swissRoll, swissRoll.isomap$points)
+# cont.isomap.brokenSwissRoll <- continuity(K, brokenSwissRoll, brokenSwissRoll.isomap$points)
+# cont.isomap.helix <- continuity(K, helix, helix.isomap$points[,1])
+# cont.isomap.twinpeaks <- continuity(K, twinpeaks, twinpeaks.isomap$points)
+# cont.isomap.openBox <- continuity(K, openBox, openBox.isomap$points)
+# 
+# #### Local Linear Embedding ####
+# 
+# swissRoll.lle<- get(load("./data/lle/swissRoll_k13.RData"))
+# brokenSwissRoll.lle <- get(load("./data/lle/brokenSwissRoll_k65.RData"))
+# helix.lle <- get(load("./data/lle/helix_k7.RData"))
+# twinpeaks.lle <- get(load("./data/lle/twinpeaks_k11.RData"))
+# openBox.lle <- get(load("./data/lle/openBox_k11.RData"))
+# 
+# # trustworthiness
+# trust.lle.swissroll <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.lle$Y)
+# trust.lle.brokenSwissroll <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.lle$Y)
+# trust.lle.helix <- trustworthiness(K, hd.ngh.helix, helix.lle$Y)
+# trust.lle.twinpeaks <- trustworthiness(K, hd.ngh.twinpeaks, twinpeaks.lle$Y)
+# trust.lle.openBox <- trustworthiness(K, hd.ngh.openBox, openBox.lle$Y)
+# 
+# # continuity
+# 
+# cont.lle.swissroll <- continuity(K, swissRoll, swissRoll.lle$Y)
+# cont.lle.brokenSwissroll <- continuity(K, brokenSwissRoll, brokenSwissRoll.lle$Y)
+# cont.lle.helix <- continuity(K, helix, helix.lle$Y)
+# cont.lle.twinpeaks <- continuity(K, twinpeaks, twinpeaks.lle$Y)
+# cont.lle.openBox <- continuity(K, openBox, openBox.lle$Y)
 
