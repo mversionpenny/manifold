@@ -1,11 +1,10 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
-list.of.packages <- c("rstudioapi", "png")
+list.of.packages <- c("rstudioapi", "rgl", "plot3D", "RColorBrewer", "doParallel", "foreach", "png", "parallel", "vegan", "lle" , "MASS")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos = "http://cran.rstudio.com/")
 library(rstudioapi)
-library(png)
 
 rm(list=ls())
 
@@ -18,48 +17,35 @@ setwd(this.dir)
 # source("generate_data.R")
 
 #### Read the artificial data ####
-swissRoll <- read.table("data/swissRoll.txt", sep = "\t")
-d_swiss <- dist(swissRoll)
-
-brokenSwissRoll <- read.table("data/brokenSwissRoll.txt", sep = "\t")
-d_broken <- dist(brokenSwissRoll)
-
-helix <- read.table("data/helix.txt", sep = "\t")
-d_helix <- dist(helix)
-
-twinpeaks <- read.table("data/twinpeaks.txt", sep = "\t")
-d_twins <- dist(twinpeaks) 
-
-openBox <- read.table("data/openBox.txt", sep = "\t")
-d_open <- dist(openBox)
-
+# swissRoll <- read.table("data/swissRoll.txt", sep = "\t")
+# d_swiss <- dist(swissRoll)
+# 
+# brokenSwissRoll <- read.table("data/brokenSwissRoll.txt", sep = "\t")
+# d_broken <- dist(brokenSwissRoll)
+# 
+# helix <- read.table("data/helix.txt", sep = "\t")
+# d_helix <- dist(helix)
+# 
+# twinpeaks <- read.table("data/twinpeaks.txt", sep = "\t")
+# d_twins <- dist(twinpeaks) 
+# 
+# openBox <- read.table("data/openBox.txt", sep = "\t")
+# d_open <- dist(openBox)
+# 
 #### Read the real data ####
-data_path <- file.path("data", "real_data_image")
-list_folder <- list.files(data_path)
-row_names <- c()
-for (folder in list_folder){
-  list_files <- list.files(file.path(data_path,folder))
-  for (i in 1:length(list_files)){
-    row_names <- c(row_names, paste(folder, "_", i, sep=""))
-    img <- readPNG(file.path(data_path,folder,list_files[i]))
-    img <- as.vector(img)
-    if (!exists("real")){
-      real <- img
-    }
-    else{
-      real <- rbind(real, img)
-    }
-  }
-}
-real <- as.data.frame(real)
-rownames(real) <- row_names
+## The line below shouldn't be rerun (took a lot of time)
+source("read_real_data.R")
 
-d <- dist(real)
-test <- sammon(d)
-plot(test$points, type ="n")
-text(test$points, labels = row_names)
+## load the saved matrix
+load(file.path("data","real_data_matrix", "segmentation.RData")) # load real_seg
+load(file.path("data","real_data_matrix", "dist_segmentation.RData")) #load d_seg
+load(file.path("data","real_data_matrix", "grey.RData")) #load real_grey
+load(file.path("data","real_data_matrix", "dist_grey.RData")) #load d_grey
+load(file.path("data","real_data_matrix", "color.RData")) #load real_color
+load(file.path("data","real_data_matrix", "dist_color.RData")) # load d_color
+
 #### Optimize the parameters ####
 ## ATTENTION: Take a lot of time. Run only once.
 ## Result objects are all saved in order to save time of calculation later
-#source("optimize_parameters.R")
-source("final_results.R")
+source("optimize_parameters.R")
+

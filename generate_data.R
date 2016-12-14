@@ -2,9 +2,6 @@
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
 # Functions to generate different types of datasets
-list.of.packages <- c("rgl", "plot3D")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages, repos = "http://cran.rstudio.com/")
 library(rgl)
 library(plot3D)
 plot.path = "plots/artificial_data"
