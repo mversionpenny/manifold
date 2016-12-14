@@ -55,4 +55,23 @@ cont.sammon.openBox <- continuity(K, openBox, openBox.sammon$points)
 #### ISOMAP ####
 
 #### Local Linear Embedding ####
+library(lle)
+swissRoll.lle.k13 <- load("D:/manifold-project/data/lle/swissRoll_k13.RData")
+swissRoll.lle.k13 <- get(swissRoll.lle.k13)
+swissRoll.lle.k80 <- load("D:/manifold-project/data/lle/swissRoll_k80.RData")
+swissRoll.lle.k80 <- get(swissRoll.lle.k80)
+
+brokenSwissRoll.lle.k11 <- load("D:/manifold-project/data/lle/brokenSwissRoll_k11.RData")
+brokenSwissRoll.lle.k11 <- get(brokenSwissRoll.lle.k11)
+brokenSwissRoll.lle.k65 <- load("D:/manifold-project/data/lle/brokenSwissRoll_k65.RData")
+brokenSwissRoll.lle.k65 <- get(brokenSwissRoll.lle.k65)
+
+# trustworthiness
+trust.lle.swissroll.k13 <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.lle.k13$Y)
+trust.lle.swissroll.k80 <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.lle.k80$Y)
+trust.lle.brokenSwissroll.k11 <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.lle.k11$Y)
+trust.lle.brokenSwissroll.k65 <- trustworthiness(K, hd.ngh.brokenSwissRoll, brokenSwissRoll.lle.k65$Y)
+
+# continuity
+
 
