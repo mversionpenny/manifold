@@ -52,3 +52,4 @@ continuity <- function(k, hd.data, ld.data){
   result <- 1 - 2/(n*k*(2*n - 3*k -1)) * sum 
   return(result) 
 } 
+
