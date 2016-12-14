@@ -28,11 +28,11 @@ optimize_k_isomap <- function(distances, ndim = 2, test_k, dataname){
 }
 
 # test <- c(seq(5,15),20,25,30,35)
-test_real <- c(2:4)
-nb_cores <- 7
-cl <- makeCluster(nb_cores)
-clusterExport(cl, list())
-registerDoParallel(nb_cores)
+# test_real <- c(5:25)
+# nb_cores <- 7
+# cl <- makeCluster(nb_cores)
+# clusterExport(cl, list())
+# registerDoParallel(nb_cores)
 # # 
 # optimize_k_isomap(d_swiss, 2, test, "swissRoll")
 # optimize_k_isomap(d_helix, 2, test, "helix")
@@ -41,8 +41,8 @@ registerDoParallel(nb_cores)
 optimize_k_isomap(d_seg, 2, test_real, "real_seg")
 optimize_k_isomap(d_grey, 2, test_real, "real_grey")
 optimize_k_isomap(d_color, 2, test_real, "real_color")
-
-stopCluster(cl)
+# 
+# stopCluster(cl)
 
 ## Sequential:
 # for higher k
@@ -104,6 +104,8 @@ nb_cores <- 5
 # optimize_k_lle(openBox, ndim=1, kmin = 20, kmax = 35, step = 5, dataname = "openBox", nb_cores = nb_cores)
 # optimize_k_lle(brokenSwissRoll, kmin = 20, kmax = 35, step = 5, dataname = "brokenSwissRoll", nb_cores = nb_cores)
 # optimize_k_lle(real_seg, kmin = 5, kmax = 25, step = 1, dataname = "real_seg", nb_cores = nb_cores)
+optimize_k_lle(real_grey, kmin = 5, kmax = 25, step = 1, dataname = "real_grey", nb_cores = nb_cores)
+optimize_k_lle(real_color, kmin = 5, kmax = 25, step = 1, dataname = "real_color", nb_cores = nb_cores)
 
 # nb_cores <- 2
 # optimize_k_lle(swissRoll, kmin = 40, kmax = 80, step = 5, dataname = "swissRoll", nb_cores = nb_cores)
@@ -129,24 +131,24 @@ nb_cores <- 5
 #   }
 # }
 
-data_name <- c("real_seg")
-for (name in data_name){
-  test_k <- read.table(file.path("data", "test_lle", paste(name, ".txt", sep="")), header = F)
-  k_opt <- test_k[,1][which(test_k[,2] == min(test_k[,2]))]
-  x_lle <- lle(get(name), 2, k_opt)
-  save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
-  if (k_opt>9){
-    k_opt <- test_k[,1][which(test_k[,2] == min(test_k[1:5,2]))]
-    x_lle <- lle(get(name), 2, k_opt)
-    save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
-  }
-}
+# data_name <- c("real_seg")
+# for (name in data_name){
+#   test_k <- read.table(file.path("data", "test_lle", paste(name, ".txt", sep="")), header = F)
+#   k_opt <- test_k[,1][which(test_k[,2] == min(test_k[,2]))]
+#   x_lle <- lle(get(name), 2, k_opt)
+#   save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+  # if (k_opt>9){
+  #   k_opt <- test_k[,1][which(test_k[,2] == min(test_k[1:5,2]))]
+  #   x_lle <- lle(get(name), 2, k_opt)
+  #   save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+#   }
+# }
 
 #### Optimize parameter for Sammon ####
 ## No parameter to optimize, simply use the method for each data set and save the result
 # dir.create(file.path("data", "sammon"), showWarnings = FALSE)
-# sammon_swiss <- sammon(d_swiss)
-# save(sammon_swiss, file = file.path("data", "sammon", "swissRoll.RData"))
+sammon_swiss <- sammon(d_swiss)
+save(sammon_swiss, file = file.path("data", "sammon", "swissRoll.RData"))
 # # 20
 # sammon_broken <- sammon(d_broken)
 # save(sammon_broken, file = file.path("data", "sammon", "brokenSwissRoll.RData"))

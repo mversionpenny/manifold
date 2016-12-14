@@ -27,7 +27,7 @@ setwd(this.dir)
 # d_helix <- dist(helix)
 # 
 # twinpeaks <- read.table("data/twinpeaks.txt", sep = "\t")
-# d_twins <- dist(twinpeaks) 
+# d_twins <- dist(twinpeaks)
 # 
 # openBox <- read.table("data/openBox.txt", sep = "\t")
 # d_open <- dist(openBox)
@@ -47,5 +47,5 @@ load(file.path("data","real_data_matrix", "dist_color.RData")) # load d_color
 #### Optimize the parameters ####
 ## ATTENTION: Take a lot of time. Run only once.
 ## Result objects are all saved in order to save time of calculation later
-source("optimize_parameters.R")
+# source("optimize_parameters.R")
 
