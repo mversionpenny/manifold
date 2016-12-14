@@ -105,7 +105,7 @@ cont.sammon.openBox <- continuity(K, openBox, openBox.sammon$points)
 
 swissRoll.isomap <- get(load("./data/test_isomap_swissRoll/k40.RData"))
 brokenSwissRoll.isomap <- get(load("./data/test_isomap_brokenSwissRoll/k65.RData"))
-helix.isomap <- get(load("./data/test_isomap_helix/k5.RData"))
+helix.isomap <- get(load("./data/test_isomap_helix/k65.RData"))
 twinpeaks.isomap <- get(load("./data/test_isomap_twinpeaks/k65.RData"))
 openBox.isomap <- get(load("./data/test_isomap_openBox/k5.RData"))
 
