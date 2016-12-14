@@ -5,10 +5,6 @@
 # test is saved in a Rdata file to save time of recalculation later. 
 # The function calling lines are put in comment to prevent the long calculation
 # to be repeated
-
-list.of.packages <- c("doParallel", "foreach", "vegan", "lle" , "MASS", "parallel")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages, repos = "http://cran.rstudio.com/")
 library(lle)
 library(doParallel)
 library(foreach)
@@ -31,17 +27,20 @@ optimize_k_isomap <- function(distances, ndim = 2, test_k, dataname){
     }
 }
 
-# test <- c(5,10,15,20,25,30,35)
-# test <- c(6,7,8,9,11,12,13,14)
+# test <- c(seq(5,15),20,25,30,35)
+# test_real <- c(5:25)
 # nb_cores <- 7
 # cl <- makeCluster(nb_cores)
 # clusterExport(cl, list())
 # registerDoParallel(nb_cores)
-# 
+# # 
 # optimize_k_isomap(d_swiss, 2, test, "swissRoll")
 # optimize_k_isomap(d_helix, 2, test, "helix")
 # optimize_k_isomap(d_twins, 2, test, "twinpeaks")
 # optimize_k_isomap(d_open, 2, test, "openBox")
+optimize_k_isomap(d_seg, 2, test_real, "real_seg")
+optimize_k_isomap(d_grey, 2, test_real, "real_grey")
+optimize_k_isomap(d_color, 2, test_real, "real_color")
 # 
 # stopCluster(cl)
 
@@ -98,43 +97,58 @@ nb_cores <- 7
 # optimize_k_lle(openBox, ndim=1, kmin = 5, kmax = 15, step = 1, dataname = "openBox", nb_cores = nb_cores)
 # optimize_k_lle(brokenSwissRoll, kmin = 5, kmax = 15, step = 1, dataname = "brokenSwissRoll", nb_cores = nb_cores)
 
-nb_cores <- 4
+nb_cores <- 5
 # optimize_k_lle(swissRoll, kmin = 20, kmax = 35, step = 5, dataname = "swissRoll", nb_cores = nb_cores)
 # optimize_k_lle(helix, ndim=1, kmin = 20, kmax = 35, step = 5, dataname = "helix", nb_cores = nb_cores)
 # optimize_k_lle(twinpeaks, ndim=1, kmin = 20, kmax = 35, step = 5, dataname = "twinpeaks", nb_cores = nb_cores)
 # optimize_k_lle(openBox, ndim=1, kmin = 20, kmax = 35, step = 5, dataname = "openBox", nb_cores = nb_cores)
 # optimize_k_lle(brokenSwissRoll, kmin = 20, kmax = 35, step = 5, dataname = "brokenSwissRoll", nb_cores = nb_cores)
+# optimize_k_lle(real_seg, kmin = 5, kmax = 25, step = 1, dataname = "real_seg", nb_cores = nb_cores)
+optimize_k_lle(real_grey, kmin = 5, kmax = 25, step = 1, dataname = "real_grey", nb_cores = nb_cores)
+optimize_k_lle(real_color, kmin = 5, kmax = 25, step = 1, dataname = "real_color", nb_cores = nb_cores)
 
-nb_cores <- 3
+# nb_cores <- 2
 # optimize_k_lle(swissRoll, kmin = 40, kmax = 80, step = 5, dataname = "swissRoll", nb_cores = nb_cores)
 # optimize_k_lle(helix, ndim=1, kmin = 40, kmax = 80, step = 5, dataname = "helix", nb_cores = nb_cores)
 # optimize_k_lle(twinpeaks, ndim=1, kmin = 40, kmax = 80, step = 5, dataname = "twinpeaks", nb_cores = nb_cores)
 # optimize_k_lle(openBox, ndim=1, kmin = 40, kmax = 80, step = 5, dataname = "openBox", nb_cores = nb_cores)
 # optimize_k_lle(brokenSwissRoll, kmin = 40, kmax = 80, step = 5, dataname = "brokenSwissRoll", nb_cores = nb_cores)
 
-## Run LLE with optimal k (in general) and optimal k in [5,15]
-dir.create(file.path("data", "lle"), showWarnings = FALSE)
-data_name <- c("swissRoll", "helix", "twinpeaks", "brokenSwissRoll", "openBox")
-for (name in data_name){
-  test_k <- read.table(file.path("data", "test_lle", paste(name, ".txt", sep="")), header = T)
-  k_opt <- test_k$k[which(test_k$rho == min(test_k$rho))]
-  if (name == "helix")  m = 1
-  else m = 2
-  x_lle <- lle(get(name), m, k_opt)
-  save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
-  if (k_opt>15){
-    k_opt <- test_k$k[which(test_k$rho == min(test_k$rho[1:11]))]
-    x_lle <- lle(get(name), m, k_opt)
-    save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
-  }          
-}
+## Run LLE with optimal k (in general) and optimal k in [5,15] for artificial data
+# dir.create(file.path("data", "lle"), showWarnings = FALSE)
+# data_name <- c("swissRoll", "helix", "twinpeaks", "brokenSwissRoll", "openBox")
+# for (name in data_name){
+#   test_k <- read.table(file.path("data", "test_lle", paste(name, ".txt", sep="")), header = F)
+#   k_opt <- test_k[,1][which(test_k[,2] == min(test_k[,2]))]
+#   if (name == "helix")  m = 1
+#   else m = 2
+#   x_lle <- lle(get(name), m, k_opt)
+#   save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+#   if (k_opt>9){
+#     k_opt <- test_k[,1][which(test_k[,2] == min(test_k[1:11,2]))]
+#     x_lle <- lle(get(name), m, k_opt)
+#     save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+#   }
+# }
 
+# data_name <- c("real_seg")
+# for (name in data_name){
+#   test_k <- read.table(file.path("data", "test_lle", paste(name, ".txt", sep="")), header = F)
+#   k_opt <- test_k[,1][which(test_k[,2] == min(test_k[,2]))]
+#   x_lle <- lle(get(name), 2, k_opt)
+#   save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+  # if (k_opt>9){
+  #   k_opt <- test_k[,1][which(test_k[,2] == min(test_k[1:5,2]))]
+  #   x_lle <- lle(get(name), 2, k_opt)
+  #   save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+#   }
+# }
 
 #### Optimize parameter for Sammon ####
 ## No parameter to optimize, simply use the method for each data set and save the result
 # dir.create(file.path("data", "sammon"), showWarnings = FALSE)
-# sammon_swiss <- sammon(d_swiss)
-# save(sammon_swiss, file = file.path("data", "sammon", "swissRoll.RData"))
+sammon_swiss <- sammon(d_swiss)
+save(sammon_swiss, file = file.path("data", "sammon", "swissRoll.RData"))
 # # 20
 # sammon_broken <- sammon(d_broken)
 # save(sammon_broken, file = file.path("data", "sammon", "brokenSwissRoll.RData"))
@@ -148,3 +162,9 @@ for (name in data_name){
 # sammon_open <- sammon(d_open)
 # save(sammon_open, file = file.path("data", "sammon", "openBox.RData"))
 # #2
+# sammon_real_seg <- sammon(d_seg)
+# save(sammon_real_seg, file = file.path("data", "sammon", "real_seg.RData"))
+# sammon_real_color<- sammon(d_color)
+# save(sammon_real_color, file = file.path("data", "sammon", "real_color.RData"))
+# sammon_real_grey <- sammon(d_grey)
+# save(sammon_real_grey, file = file.path("data", "sammon", "real_grey.RData"))
