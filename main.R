@@ -14,7 +14,7 @@ setwd(this.dir)
 
 #### Generate data ####
 ## ATTENTION: Run only once
-# data is saved in 'data' as .txt files
+# data are already saved in 'data' as .txt files. Rerun the line the line below might overwrite the data files.
 # source("generate_data.R")
 
 #### Read the artificial data ####
