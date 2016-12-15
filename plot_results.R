@@ -60,7 +60,8 @@ for (name in data_name){
   points <- as.data.frame(get(paste("sammon", name, sep="_"))$points)
   p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
     geom_point(aes(colour = factor_class)) + 
-    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2"))
+    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2")) + 
+    theme(legend.title=element_blank())
   ggsave(file.path("plots", "results_sammon", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
 }
 
@@ -70,8 +71,9 @@ for (i in 1:length(data_name)){
   load(file.path("data", paste("test_isomap_", name , sep=""), paste("k", best_iso[i], ".RData", sep=""))) #load x_iso
   points <- as.data.frame(x_iso$points)
   p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
-    geom_point(aes(colour = factor_class)) + 
-    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2"))
+    geom_point(aes(colour = factor_class)) + guides(fill=guide_legend(title=NULL)) +
+    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2")) + 
+    theme(legend.title=element_blank())
   ggsave(file.path("plots", "results_isomap", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
 }
 
@@ -82,6 +84,7 @@ for (i in 1:length(data_name)){
   points <- as.data.frame(x_lle$Y)
   p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
     geom_point(aes(colour = factor_class)) + 
-    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2"))
+    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2")) + 
+    theme(legend.title=element_blank())
   ggsave(file.path("plots", "results_lle", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
 }
