@@ -14,6 +14,7 @@ setwd(this.dir)
 
 #### Generate data ####
 ## ATTENTION: Run only once
+# data is saved in 'data' as .txt files
 # source("generate_data.R")
 
 #### Read the artificial data ####
@@ -31,10 +32,11 @@ d_twins <- dist(twinpeaks)
 
 openBox <- read.table("data/openBox.txt", sep = "\t")
 d_open <- dist(openBox)
-# 
+
 #### Read the real data ####
 ## The line below shouldn't be rerun (took a lot of time)
 source("read_real_data.R")
+# add the pixels of images into a large matrix => saved as .RData files in data/real_data_matrix
 
 ## load the saved matrix
 load(file.path("data","real_data_matrix", "segmentation.RData")) # load real_seg
@@ -47,9 +49,11 @@ load(file.path("data","real_data_matrix", "dist_color.RData")) # load d_color
 #### Optimize the parameters ####
 ## ATTENTION: Take a lot of time. Run only once.
 ## Result objects are all saved in order to save time of calculation later
+## Results are saved in 'plots' or 'data' (details in optimize_parameters.R)
 source("optimize_parameters.R")
 
-
 #### Calculate the trustworthiness and the continuity ####
+source("trustworthiness_continuity.R")
 
-
+#### Plot the results and save into plots/results_... ####
+source("plot_results.R")

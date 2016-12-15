@@ -121,7 +121,8 @@ HD <-function(n = 5000){
   l <- list(seq(0,1,length=nb_per_dim))
   temp <- rep(t(l),ndims)
   t <- expand.grid(temp)
-  X <- cbind(cos(t[,1]), tanh(3 * t[,2]), t[,1] + t[,3], t[,4] * sin(t[,2]), sin(t[,1] + t[,5]), t[,5] * cos(t[,2]), t[,5] + t[,4], t[,2], t[,3] * t[,4], t[,1])
+  X <- cbind(cos(t[,1]), tanh(3 * t[,2]), t[,1] + t[,3], t[,4] * sin(t[,2]), 
+             sin(t[,1] + t[,5]), t[,5] * cos(t[,2]), t[,5] + t[,4], t[,2], t[,3] * t[,4], t[,1])
   return(X)
 }
 
