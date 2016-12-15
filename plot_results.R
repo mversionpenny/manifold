@@ -1,11 +1,12 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
-# Plot the final results and save as .png
+# Plot the final results and save as .png. Rerun this file will overwrite all the plot saved in plots/results_[sammon/isomap/lle]
 library(RColorBrewer)
 library(ggplot2)
 library(plot3D)
-dir.create(file.path("plots", "results_sammon"), showWarnings = FALSE)
+
+dir.create(file.path("plots", "results_sammon"), showWarnings = FALSE) 
 dir.create(file.path("plots", "results_isomap"), showWarnings = FALSE)
 dir.create(file.path("plots", "results_lle"), showWarnings = FALSE)
 
