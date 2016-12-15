@@ -33,7 +33,8 @@ trustworthiness <- function(k, hd.ngh, ld.data){
 
 continuity <- function(k, hd.data, ld.data){ 
   n <- nrow(hd.data) 
-  print("getting hd neighborhoods") 
+  print("getting hd neighborhoods")
+  hd.ngh <- nn2(hd.data, k=k)
   print("getting ld neighborhoods") 
   ld.ngh <- nn2(ld.data, k=n) 
   
@@ -72,7 +73,7 @@ twinpeaks <- read.table("data/twinpeaks.txt", sep = "\t")
 
 
 openBox <- read.table("data/openBox.txt", sep = "\t")
-# hd.ngh.openBox<- nn2(openBox, k=n)
+# hd.ngh.openBox <- nn2(openBox, k=n)
 
 # #### Sammon Mapping ####
 # 
@@ -123,9 +124,9 @@ openBox <- read.table("data/openBox.txt", sep = "\t")
 # 
 # swissRoll.lle<- get(load("./data/lle/swissRoll_k13.RData"))
 # brokenSwissRoll.lle <- get(load("./data/lle/brokenSwissRoll_k65.RData"))
-# helix.lle <- get(load("./data/lle/helix_k7.RData"))
-# twinpeaks.lle <- get(load("./data/lle/twinpeaks_k11.RData"))
-# openBox.lle <- get(load("./data/lle/openBox_k11.RData"))
+# helix.lle <- get(load("./data/lle/helix_k8.RData"))
+# twinpeaks.lle <- get(load("./data/lle/twinpeaks_k12.RData"))
+# openBox.lle <- get(load("./data/lle/openBox_k8.RData"))
 # 
 # # trustworthiness
 # trust.lle.swissroll <- trustworthiness(K, hd.ngh.swissRoll, swissRoll.lle$Y)
