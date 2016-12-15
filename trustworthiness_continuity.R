@@ -7,7 +7,21 @@ this.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(this.dir)
 library(RANN) 
 
-# trustworthiness take hd.ngh as a argument so that we compute it once
+
+# +-------------------------------------------------------------------------+
+# | *Function : trustworthiness                                             |
+# | *Description: computes the trustworthiness of a low dimensionnal        |
+# |  dataset with respect to its high-dimensionnal original dataset.        |
+# | *Inputs: - k: number of neighborhoods compared locally                  |
+# |          - hd.ngh: k-nearest-neighbors for each point of high-          |
+# |            dimensionnal dataset                                         |
+# |          - ld.data: points from low-dimensionnal dataset                |
+# | *Outputs:- trustworthiness (float)                                      |
+# |                                                                         |
+# | cf. report for details on computations of trustworthiness.              |
+# +-------------------------------------------------------------------------+
+
+
 trustworthiness <- function(k, hd.ngh, ld.data){ 
   
   n <- nrow(hd.ngh$nn.idx) 
@@ -30,6 +44,18 @@ trustworthiness <- function(k, hd.ngh, ld.data){
   result <- 1 - 2/(n*k*(2*n - 3*k -1)) * sum 
   return(result) 
 } 
+
+# +-------------------------------------------------------------------------+
+# | *Function : continuity                                                  |
+# | *Description: computes the continuity of a low dimensionnal             |
+# |  dataset with respect to its high-dimensionnal original dataset.        |
+# | *Inputs: - k: number of neighborhoods compared locally                  |
+# |          - hd.data: points from high-dimensionnal dataset               |
+# |          - ld.data: points from low-dimensionnal dataset                |
+# | *Outputs:- continuity (float)                                           |
+# |                                                                         |
+# | cf. report for details on computations of continuity                    |
+# +-------------------------------------------------------------------------+
 
 continuity <- function(k, hd.data, ld.data){ 
   n <- nrow(hd.data) 
@@ -102,7 +128,7 @@ openBox <- read.table("data/openBox.txt", sep = "\t")
 # 
 # swissRoll.isomap <- get(load("./data/test_isomap_swissRoll/k40.RData"))
 # brokenSwissRoll.isomap <- get(load("./data/test_isomap_brokenSwissRoll/k65.RData"))
-# helix.isomap <- get(load("./data/test_isomap_helix/k65.RData"))
+# helix.isomap <- get(load("./data/test_isomap_helix/k10.RData"))
 # twinpeaks.isomap <- get(load("./data/test_isomap_twinpeaks/k65.RData"))
 # openBox.isomap <- get(load("./data/test_isomap_openBox/k5.RData"))
 # 
