@@ -119,20 +119,20 @@ optimize_k_lle <- function(data, ndim = 2, kmin, kmax, step=1, dataname, nb_core
 ## Run LLE with optimal k (in general) and optimal k in [5,15] for artificial data
 # dir.create(file.path("data", "lle"), showWarnings = FALSE)
 # data_name <- c("swissRoll", "helix", "twinpeaks", "brokenSwissRoll", "openBox")
-data_name <- c("twinpeaks","openBox")
-for (name in data_name){
-  test_k <- read.table(file.path("data", "test_lle", paste(name, ".txt", sep="")), header = F)
-  k_opt <- test_k[,1][which(test_k[,2] == min(test_k[,2]))]
-  if (name == "helix")  m = 1
-  else m = 2
-  x_lle <- lle(get(name), m, k_opt)
-  save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
-  if (k_opt>9){
-    k_opt <- test_k[,1][which(test_k[,2] == min(test_k[1:11,2]))]
-    x_lle <- lle(get(name), m, k_opt)
-    save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
-  }
-}
+
+# for (name in data_name){
+#   test_k <- read.table(file.path("data", "test_lle", paste(name, ".txt", sep="")), header = F)
+#   k_opt <- test_k[,1][which(test_k[,2] == min(test_k[,2]))]
+#   if (name == "helix")  m = 1
+#   else m = 2
+#   x_lle <- lle(get(name), m, k_opt)
+#   save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+#   if (k_opt>9){
+#     k_opt <- test_k[,1][which(test_k[,2] == min(test_k[1:11,2]))]
+#     x_lle <- lle(get(name), m, k_opt)
+#     save(x_lle, file = file.path("data", "lle", paste(name, "_k", k_opt, ".RData", sep="")))
+#   }
+# }
 
 # data_name <- c("real_seg", "real_color", "real_grey")
 # for (name in data_name){

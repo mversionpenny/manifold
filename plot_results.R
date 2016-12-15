@@ -1,6 +1,7 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
+# Plot the final results and save as .png
 library(RColorBrewer)
 library(ggplot2)
 library(plot3D)
@@ -9,7 +10,7 @@ dir.create(file.path("plots", "results_isomap"), showWarnings = FALSE)
 dir.create(file.path("plots", "results_lle"), showWarnings = FALSE)
 
 #### Artificial data ####
-best_iso <- c(65, 65, 40, 65, 5)
+best_iso <- c(10, 65, 40, 65, 5)
 best_lle <- c(35, 65, 13 , 12 , 75)
 data_name <- c("helix", "brokenSwissRoll", "swissRoll", "twinpeaks", "openBox")
 short_name <- c("helix", "broken", "swiss", "twins", "open")
