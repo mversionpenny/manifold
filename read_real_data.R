@@ -47,17 +47,17 @@ dir.create(file.path("data", "real_data_matrix"), showWarnings = FALSE)
 nb_cores = 7
 
 ##!!!!!! Save and load a .RData is !!!!A LOT FASTER!!!! than save and load a .txt
-real_seg <- read_real_data(file.path("data", "real_data_seg"),nb_cores, 5)
-save(real_seg, file = file.path("data", "real_data_matrix", "segmentation.RData"))
-d_seg <- dist(real_seg)
-save(d_seg,file = file.path("data", "real_data_matrix", "dist_segmentation.RData"))
-
-real_grey <- read_real_data(file.path("data", "real_data_grey"),nb_cores, 5)
-save(real_grey, file = file.path("data", "real_data_matrix", "grey.RData"))
-d_grey <- dist(real_grey)
-save(d_grey,file = file.path("data", "real_data_matrix", "dist_grey.RData"))
-
-real_color <- read_real_data(file.path("data", "real_data_color"), nb_cores, 5)
-save(real_color, file = file.path("data", "real_data_matrix", "color.RData"))
-d_color <- dist(real_color)
-save(d_color,file = file.path("data", "real_data_matrix", "dist_color.RData"))
+# real_seg <- read_real_data(file.path("data", "real_data_seg"),nb_cores, 5)
+# save(real_seg, file = file.path("data", "real_data_matrix", "segmentation.RData"))
+# d_seg <- dist(real_seg)
+# save(d_seg,file = file.path("data", "real_data_matrix", "dist_segmentation.RData"))
+# 
+# real_grey <- read_real_data(file.path("data", "real_data_grey"),nb_cores, 5)
+# save(real_grey, file = file.path("data", "real_data_matrix", "grey.RData"))
+# d_grey <- dist(real_grey)
+# save(d_grey,file = file.path("data", "real_data_matrix", "dist_grey.RData"))
+# 
+# real_color <- read_real_data(file.path("data", "real_data_color"), nb_cores, 5)
+# save(real_color, file = file.path("data", "real_data_matrix", "color.RData"))
+# d_color <- dist(real_color)
+# save(d_color,file = file.path("data", "real_data_matrix", "dist_color.RData"))

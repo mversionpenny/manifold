@@ -49,3 +49,7 @@ load(file.path("data","real_data_matrix", "dist_color.RData")) # load d_color
 ## Result objects are all saved in order to save time of calculation later
 source("optimize_parameters.R")
 
+
+#### Calculate the trustworthiness and the continuity ####
+
+
