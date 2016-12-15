@@ -10,7 +10,7 @@ dir.create(file.path("plots", "results_lle"), showWarnings = FALSE)
 
 #### Artificial data ####
 best_iso <- c(65, 65, 40, 65, 5)
-best_lle <- c(7, 65, 13 , 11 , 11)
+best_lle <- c(35, 65, 13 , 12 , 75)
 data_name <- c("helix", "brokenSwissRoll", "swissRoll", "twinpeaks", "openBox")
 short_name <- c("helix", "broken", "swiss", "twins", "open")
 
@@ -26,7 +26,7 @@ for (i in 1:length(data_name)){
 
 ## isomap
 for (i in 1:length(data_name)){
-  load(file.path("data", paste("test_isomap_", data_name[i], sep=""), paste("k", best_iso[i], ".RData", sep=""))) #load x_lle
+  load(file.path("data", paste("test_isomap_", data_name[i], sep=""), paste("k", best_iso[i], ".RData", sep=""))) #load x_iso
   if (i == 1) points <- x_iso$points[,1]
   else points <- x_iso$points
   png(filename = file.path("plots", "results_isomap", paste(data_name[i], ".png", sep="")))
@@ -50,7 +50,10 @@ n = nrow(real_seg)
 col.classes <- brewer.pal(8,"Dark2")
 cols.classes <- rep(col.classes, each=n/8)
 data_name <- c("real_seg", "real_grey", "real_color")
+best_iso <- c()
+best_lle <- c(18,24,15)
 
+## Sammon
 for (name in data_name){
   load(file.path("data", "sammon", paste(name,".RData", sep=""))) # load sammon_real_...(seg, grey or color)
   points <- as.data.frame(get(paste("sammon", name, sep="_"))$points)
@@ -60,6 +63,26 @@ for (name in data_name){
   ggsave(file.path("plots", "results_sammon", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
 }
 
+## Isomap
+for (name in data_name){
+  load(file.path("data", paste("test_isomap_", data_name[i], sep=""), paste("k", best_iso[i], ".RData", sep=""))) #load x_iso
+  if (i == 1) points <- x_iso$points[,1]
+  else points <- x_iso$points
+  p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
+    geom_point(aes(colour = factor_class)) + 
+    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2"))
+  ggsave(file.path("plots", "results_sammon", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
+}
+
+## LLE
+for (name in data_name){
+  load(file.path("data", "sammon", paste(name,".RData", sep=""))) # load sammon_real_...(seg, grey or color)
+  points <- as.data.frame(get(paste("sammon", name, sep="_"))$points)
+  p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
+    geom_point(aes(colour = factor_class)) + 
+    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2"))
+  ggsave(file.path("plots", "results_sammon", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
+}
 
 load(file.path("data", "lle", "real_seg_k18.RData")) #load sammon_real_seg
 # png(filename = file.path("plots", "results_sammon", paste(name, ".png", sep="")))
