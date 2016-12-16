@@ -1,5 +1,5 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
-#------------------------ Manifold Learning Prject----------------------
+#------------------------ Manifold Learning Project---------------------
 #------------------------------ 2016/2017 ------------------------------
 #                                                        *
 #     *                                                          *
@@ -22,15 +22,22 @@ library(doParallel)
 library(foreach)
 library(parallel)
 
-# *Function : read_folder                             
-# *Description: read png images in a folder, transform them to a vector of pixel values and  finally concatenate all the vector to a matrix.
-# This function is meant to be called by read_real_data
-# *Inputs: 
-# f: the index in the folder in list_folder
-# list_folder: list of folder of data
-# data_path: path to data
-# step: number of images between 2 read images (1: read all images)
-# *Outputs: matrix of pixel values of images
+# +-------------------------------------------------------------------------+
+# | *Function : read_folder                                                 |
+# | *Description: read png images in a folder, transform them to a vector   |
+# |  of pixel values and  finally concatenate all the vector to a matrix.   |
+# |  This function is meant to be called by read_real_data                  |
+# | *Inputs: - f: the index in the folder in list_folder                    |
+# |          - list_folder: list of folder of data                          |
+# |          - data_path: path to data                                      |
+# |          - step: number of images between 2 read images                 |
+# |            (1: read all images)                                         |
+# |          - nb_cores: number of cpus will be used for parallel           |
+# |            computation                                                  |
+# | *Outputs: matrix of pixel values of images                              |
+# +-------------------------------------------------------------------------+
+
+
 read_folder <- function(f, list_folder, data_path, step){
   require(png)
   folder = list_folder[f]
@@ -49,14 +56,22 @@ read_folder <- function(f, list_folder, data_path, step){
   return(real)
 }
 
-# *Function : read_real_data                             
-# *Description: read png images in a folder containing many subfolders, transform them to a vector of pixel values and  finally concatenate all the vector to a matrix.
-# This function use parallel computation to read many subfolders at once. 
-# *Inputs: 
-# data_path: path to folder containing the images. The folder can only contain subfolders and the subfolders can only contain png images in order to this function to work.
-# step: number of images between 2 read images (1: read all images)
-# nb_cores: number of cpus to be used in parallel computation
-# *Outputs: matrix of pixel values of images
+# +-------------------------------------------------------------------------+
+# | *Function : read_real_data                                              |
+# | *Description: read png images in a folder, containing many subfolders,  |
+# |  transform them to a vector of pixel values and finally concatenate     |
+# |  all the vector to a matrix. This function use parallel computation     |
+# |  to read many subfolders at once.                                       |
+# | *Inputs: - data_path: path to folder containing the images. The folder  |
+# |             can only contain subfolders and the subfolders can only     |
+# |             contain png images in order to this function to work.       |
+# |          - step: number of images between 2 read images                 |
+# |            (1: read all images)                                         |
+# |          - nb_cores: number of cpus will be used for parallel           |
+# |            computation                                                  |
+# | *Outputs: matrix of pixel values of images                              |
+# +-------------------------------------------------------------------------+
+
 read_real_data <- function(data_path, nb_cores, step=1) {
   list_folder <- list.files(data_path)
   

@@ -62,16 +62,24 @@ optimize_k_isomap <- function(distances, ndim = 2, test_k, dataname, nb_cores){
     }
 }
 
-# *Function : optimize_k_isomap_seq                              
-# *Description: perform the isomap algorithm for every k neighbourhood size. This function should be used for larger k 
-# or when the machine has low memory. The isomap result objects for all the k tested are saved in data/test_isomap_[dataname].
-# For each k, a barplot of eigenvalues is also saved in plots/test_isomap_[dataname]
-# *Inputs: 
-# distance: distance structure of the form returned by dist
-# ndim: intrinsic dimension of the data
-# test_k: vector containts all the k that need to be tested
-# dataname: name of the data (to save). Should be the same as the name of the matrix of input data that is used to compute the 'distance'
-# *Outputs: no output  
+# +-------------------------------------------------------------------------+
+# | *Function : optimize_k_isomap_seq                                       |
+# | *Description: perform the isomap algorithm for every k neighbourhood    |
+# |  size. This function should be used for larger k or when the machine    |
+# |  has low memory. The isomap result objects for all the k tested are     |
+# |  saved in data/test_isomap_[dataname]. For each k, a barplot of         |
+# |  eigenvalues is also saved in plots/test_isomap_[dataname]              |
+# | *Inputs: - distance: distance structure of the form returned by dist    |
+# |          - ndim: intrinsic dimension of the data                        |
+# |          - test_k: vector containts all the k that need to be tested    |
+# |          - dataname: name of the data (to save). Should be the same as  |
+# |            the name of the matrix of input data that is used to compute |
+# |            the 'distance'.                                              |
+# |          - nb_cores: number of cpus will be used for parallel           |
+# |            computation                                                  |
+# | *Outputs: no output                                                     |
+# +-------------------------------------------------------------------------+
+
 optimize_k_isomap_seq <- function(distances, ndim = 2, test_k, dataname){
   dir.create(file.path("plots", paste("test_isomap_", dataname, sep='')), showWarnings = FALSE)
   dir.create(file.path("data", paste("test_isomap_", dataname, sep='')), showWarnings = FALSE)
@@ -88,21 +96,24 @@ optimize_k_isomap_seq <- function(distances, ndim = 2, test_k, dataname){
 }
 
 
+# +-------------------------------------------------------------------------+
+# | *Function : optimize_k_lle                                              |
+# | *Description: perform the LLE algorithm for every k neighbourhood size  |
+# |  using calc_k. Parallel computation is used for smaller calculation     |
+# |  has low memory. The isomap result objects for all the k tested are     |
+# |  saved in data/test_isomap_[dataname]. For each k, a barplot of         |
+# |  eigenvalues is also saved in plots/test_isomap_[dataname]              |
+# | *Inputs: - distance: distance structure of the form returned by dist    |
+# |          - ndim: intrinsic dimension of the data                        |
+# |          - test_k: vector containts all the k that need to be tested    |
+# |          - dataname: name of the data (to save). Should be the same as  |
+# |            the name of the matrix of input data that is used to compute |
+# |            the 'distance'.                                              |
+# |          - nb_cores: number of cpus will be used for parallel           |
+# |            computation                                                  |
+# | *Outputs: no output                                                     |
+# +-------------------------------------------------------------------------+
 
-# *Function : optimize_k_lle                              
-# *Description: perform the LLE algorithm for every k neighbourhood size using calc_k. Parallel computation is used for smaller 
-# calculation time. For each k , a value rho will be computed. The k with the lowest rho is the optimal. 
-# The table with all k and rho correspondings is saved as 'data/test_lle/[dataname].txt'
-
-# *Inputs: 
-# data: matrix object containing the input data
-# ndim: intrinsic dimension of the data
-# kmin: minimum value of k
-# kmax: maximum value of k
-# step: increment of the sequence of k
-# dataname: name of the data (to save). Should be the same as the name of the matrix of input data.
-# nb_cores: number of cpus to be used in parallel computation
-# *Outputs: no output  
 optimize_k_lle <- function(data, ndim = 2, kmin, kmax, step=1, dataname, nb_cores){
   if (step == 1) {
     res <- calc_k(data, ndim, kmin = kmin, kmax = kmax, plotres = F, parallel = T, cpus = nb_cores)
@@ -121,6 +132,19 @@ optimize_k_lle <- function(data, ndim = 2, kmin, kmax, step=1, dataname, nb_core
   write.table(res, file = file.path("data", "test_lle", paste(dataname, ".txt", sep="")), 
               quote = F, col.names = F, row.names = F, append = T)
 }
+
+# +-------------------------------------------------------------------------+
+# | *Function : lle_k_opt_artificial                                        |
+# | *Description: perform the LLE algorithm on the artificial datasets with |
+# |  uthe global optimal k and the optimal k between 5 and 15 based on the  |
+# |  result of optimize_k_lle. ATTENTION: This function will fail if the    |
+# |  dataname used in optimize_k_lle is not the same as the name of input   |
+# |   data. The result objects are saved as 'data/lle/[dataname].RData'     |
+# | *Inputs: - dataname: vector containing all the names of input datasets  |
+# |          - ndims: vector containing the intrinsic dimensions of the     |
+# |            datasets                                                     |
+# | *Outputs: no output                                                     |
+# +-------------------------------------------------------------------------+
 
 # *Function : lle_k_opt_artificial                             
 # *Description: perform the LLE algorithm on the artificial datasets with the global optimal k and the optimal k between 5 and 15 based on the result of optimize_k_lle.
