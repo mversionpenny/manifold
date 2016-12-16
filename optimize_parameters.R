@@ -136,7 +136,7 @@ optimize_k_lle <- function(data, ndim = 2, kmin, kmax, step=1, dataname, nb_core
 # +-------------------------------------------------------------------------+
 # | *Function : lle_k_opt_artificial                                        |
 # | *Description: perform the LLE algorithm on the artificial datasets with |
-# |  uthe global optimal k and the optimal k between 5 and 15 based on the  |
+# |  the global optimal k and the optimal k between 5 and 15 based on the   |
 # |  result of optimize_k_lle. ATTENTION: This function will fail if the    |
 # |  dataname used in optimize_k_lle is not the same as the name of input   |
 # |   data. The result objects are saved as 'data/lle/[dataname].RData'     |
@@ -145,15 +145,7 @@ optimize_k_lle <- function(data, ndim = 2, kmin, kmax, step=1, dataname, nb_core
 # |            datasets                                                     |
 # | *Outputs: no output                                                     |
 # +-------------------------------------------------------------------------+
-
-# *Function : lle_k_opt_artificial                             
-# *Description: perform the LLE algorithm on the artificial datasets with the global optimal k and the optimal k between 5 and 15 based on the result of optimize_k_lle.
-# ATTENTION: This function will fail if the dataname used in optimize_k_lle is not the same as the name of input data. The result objects
-# are saved as 'data/lle/[dataname].RData'
-# *Inputs: 
-# dataname: vector containing all the names of input datasets
-# ndims: vector containing the intrinsic dimensions of the datasets
-# *Outputs: no output  
+  
 lle_k_opt_artificial <- function(dataname, ndims){
   dir.create(file.path("data", "lle"), showWarnings = FALSE)
   for (i in 1:length(dataname)){
@@ -171,14 +163,19 @@ lle_k_opt_artificial <- function(dataname, ndims){
   }
 }
 
-# *Function : lle_k_opt_real                             
-# *Description: perform the LLE algorithm on the real datasets with the optimal k.
-# ATTENTION: This function will fail if the dataname used in optimize_k_lle is not the same as the name of input data. The result objects
-# are saved as 'data/lle/[dataname].RData'
-# *Inputs: 
-# dataname: vector containing all the names of input datasets
-# ndims: vector containing the intrinsic dimensions of the datasets
-# *Outputs: no output  
+# +-------------------------------------------------------------------------+
+# | *Function : lle_k_opt_real                                              |
+# | *Description: perform the LLE algorithm on the real datasets with the   |
+# |  optimal k. ATTENTION: This function will fail if the dataname used     |
+# |  in optimize_k_lle is not the same as the name of input data. The       |
+# |  result objects are saved as 'data/lle/[dataname].RData'                |
+# |   data. The result objects are saved as 'data/lle/[dataname].RData'     |
+# | *Inputs: - dataname: vector containing all the names of input datasets  |
+# |          - ndims: vector containing the intrinsic dimensions of the     |
+# |            datasets                                                     |
+# | *Outputs: no output                                                     |
+# +-------------------------------------------------------------------------+
+
 lle_k_opt_real <- function(dataname, ndims){
   dir.create(file.path("data", "lle"), showWarnings = FALSE)
   for (i in 1:length(dataname)){
