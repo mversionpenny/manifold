@@ -1,6 +1,19 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
+#                                                        *
+#     *                                                          *
+#                                  *                  *        .--.
+#      \/ \/  \/  \/                                        ./   /=*
+#        \/     \/      *            *                ...  (_____)
+#         \ ^ ^/                                       \ \_((^o^))-.    *
+#         (o)(O)--)--------\.                           \   (   ) \ \._.
+#         |    |  ||================((~~~~~~~~~~~~~~~~~))|   ( )   |    \
+#          \__/             ,|        \. * * * * * * ./  (~~~~~~~~~~)    \
+#   *        ||^||\.____./|| |          \___________/     ~||~~~~|~'\____/ *
+#            || ||     || || A            ||    ||         ||    |   
+#     *      <> <>     <> <>          (___||____||_____)  ((~~~~~|   *
+
 # Read all ETH-80 data set and write the data to a matrix to facilitate the charging de data afterwards.
 # This file has been run and the data matrix are already saved in data/real_data_matrix. 
 # Rerun this file will take a lot of time and will overwrite all the files in real_data_matrix folder.

@@ -1,6 +1,19 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #----------------------- Manifold Learning Project----------------------
 #------------------------------ 2016/2017 ------------------------------
+#                                                        *
+#     *                                                          *
+#                                  *                  *        .--.
+#      \/ \/  \/  \/                                        ./   /=*
+#        \/     \/      *            *                ...  (_____)
+#         \ ^ ^/                                       \ \_((^o^))-.    *
+#         (o)(O)--)--------\.                           \   (   ) \ \._.
+#         |    |  ||================((~~~~~~~~~~~~~~~~~))|   ( )   |    \
+#          \__/             ,|        \. * * * * * * ./  (~~~~~~~~~~)    \
+#   *        ||^||\.____./|| |          \___________/     ~||~~~~|~'\____/ *
+#            || ||     || || A            ||    ||         ||    |   
+#     *      <> <>     <> <>          (___||____||_____)  ((~~~~~|   *
+
 
 # install.packages("RANN") 
 this.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
@@ -168,4 +181,3 @@ openBox <- read.table("data/openBox.txt", sep = "\t")
 # cont.lle.helix <- continuity(K, helix, helix.lle$Y)
 # cont.lle.twinpeaks <- continuity(K, twinpeaks, twinpeaks.lle$Y)
 # cont.lle.openBox <- continuity(K, openBox, openBox.lle$Y)
-

@@ -1,6 +1,24 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
+
+
+
+ 	
+
+#                                                        *
+#     *                                                          *
+#                                  *                  *        .--.
+#      \/ \/  \/  \/                                        ./   /=*
+#        \/     \/      *            *                ...  (_____)
+#         \ ^ ^/                                       \ \_((^o^))-.    *
+#         (o)(O)--)--------\.                           \   (   ) \ \._.
+#         |    |  ||================((~~~~~~~~~~~~~~~~~))|   ( )   |    \
+#          \__/             ,|        \. * * * * * * ./  (~~~~~~~~~~)    \
+#   *        ||^||\.____./|| |          \___________/     ~||~~~~|~'\____/ *
+#            || ||     || || A            ||    ||         ||    |   
+#     *      <> <>     <> <>          (___||____||_____)  ((~~~~~|   *
+
 list.of.packages <- c("rstudioapi", "rgl", "plot3D", "RColorBrewer", "doParallel", "foreach", "png", "parallel", "vegan", "lle" , "MASS")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos = "http://cran.rstudio.com/")

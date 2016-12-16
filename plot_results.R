@@ -1,6 +1,19 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
+#                                                        *
+#     *                                                          *
+#                                  *                  *        .--.
+#      \/ \/  \/  \/                                        ./   /=*
+#        \/     \/      *            *                ...  (_____)
+#         \ ^ ^/                                       \ \_((^o^))-.    *
+#         (o)(O)--)--------\.                           \   (   ) \ \._.
+#         |    |  ||================((~~~~~~~~~~~~~~~~~))|   ( )   |    \
+#          \__/             ,|        \. * * * * * * ./  (~~~~~~~~~~)    \
+#   *        ||^||\.____./|| |          \___________/     ~||~~~~|~'\____/ *
+#            || ||     || || A            ||    ||         ||    |   
+#     *      <> <>     <> <>          (___||____||_____)  ((~~~~~|   *
+
 # Plot the final results and save as .png. Rerun this file will overwrite all the plot saved in plots/results_[sammon/isomap/lle]
 library(RColorBrewer)
 library(ggplot2)

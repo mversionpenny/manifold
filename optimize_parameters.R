@@ -1,6 +1,19 @@
 #--------- Margot Selosse, Hoai Thu Nguyen, Maram Romdhane -------------
 #------------------------ Manifold Learning Prject----------------------
 #------------------------------ 2016/2017 ------------------------------
+#                                                        *
+#     *                                                          *
+#                                  *                  *        .--.
+#      \/ \/  \/  \/                                        ./   /=*
+#        \/     \/      *            *                ...  (_____)
+#         \ ^ ^/                                       \ \_((^o^))-.    *
+#         (o)(O)--)--------\.                           \   (   ) \ \._.
+#         |    |  ||================((~~~~~~~~~~~~~~~~~))|   ( )   |    \
+#          \__/             ,|        \. * * * * * * ./  (~~~~~~~~~~)    \
+#   *        ||^||\.____./|| |          \___________/     ~||~~~~|~'\____/ *
+#            || ||     || || A            ||    ||         ||    |   
+#     *      <> <>     <> <>          (___||____||_____)  ((~~~~~|   *
+
 # Optimize parameters for dimension reduction methods. Result objects after each
 # test is saved in a Rdata file to save time of recalculation later. 
 # The function calling lines are put in comment to prevent the long calculation
@@ -11,21 +24,25 @@ library(foreach)
 library(MASS)
 library(parallel)
 
-# +------------------------------------------------------------+
-# | *Function : optimize_k_isomap                              |
-# | *Description: perform the isomap algorithm for every k |
-# |  neighbourhood size. Parallel computation is used for       |
-# |  smaller calculation time. If the testing k is large,      |
-# |  optimize_k_isomap_seq is recommended. The isomap result objects for all the k tested are saved in data/test_isomap_[dataname].
-# For each k, a barplot of eigenvalues is also saved in plots/test_isomap_[dataname]
-# | *Inputs: 
-     # distance: distance structure of the form returned by dist
-     # ndim: intrinsic dimension of the data
-     # test_k: vector containts all the k that need to be tested
-     # dataname: name of the data (to save). Should be the same as the name of the matrix of input data that is used to compute the 'distance'
-     # nb_cores: number of cpus will be used for parallel computation
-# | *Outputs: no output                         |
-# +------------------------------------------------------------+
+
+# +-------------------------------------------------------------------------+
+# | *Function : optimize_k_isomap                                           |
+# | *Description: perform the isomap algorithm for every k neighbourhood    |
+# |  size. Parallel computation is used for smaller calculation time. If    |
+# |  the testing k is large, optimize_k_isomap_seq is recommended.          |
+# |  The isomap result objects for all the k tested are saved in            |
+# |  data/test_isomap_[dataname]. For each k, a barplot of eigenvalues      |
+# |  is also saved in plots/test_isomap_[dataname]                          |
+# | *Inputs: - distance: distance structure of the form returned by dist    |
+# |          - ndim: intrinsic dimension of the data                        |
+# |          - test_k: vector containts all the k that need to be tested    |
+# |          - dataname: name of the data (to save). Should be the same as  |
+# |            the name of the matrix of input data that is used to compute |
+# |            the 'distance'.                                              |
+# |          - nb_cores: number of cpus will be used for parallel           |
+# |            computation                                                  |
+# | *Outputs: no output                                                     |
+# +-------------------------------------------------------------------------+
 optimize_k_isomap <- function(distances, ndim = 2, test_k, dataname, nb_cores){
   dir.create(file.path("plots", paste("test_isomap_", dataname, sep='')), showWarnings = FALSE)
   dir.create(file.path("data", paste("test_isomap_", dataname, sep='')), showWarnings = FALSE)

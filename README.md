@@ -29,3 +29,4 @@ plot_results.r : permet de faire un plot des données réelles ou artifcielles, 
 
 Donnée réelles:
 https://www.mpi-inf.mpg.de/departments/computer-vision-and-multimodal-computing/research/object-recognition-and-scene-understanding/analyzing-appearance-and-contour-based-methods-for-object-categorization/
+76100961837700045949201
