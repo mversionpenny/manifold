@@ -61,44 +61,87 @@ for (i in 1:length(data_name)){
 #### Real data ####
 classes <- c("apple", "car", "cow", "cup", "dog", "horse", "pear", "tomato")
 n = nrow(real_seg)
-factor_class <- as.factor(rep(classes, each = n/8))
-col.classes <- brewer.pal(8,"Dark2")
-cols.classes <- rep(col.classes, each=n/8)
+n_each = n/length(classes)
+
+factor_class <- as.factor(rep(classes, each = n_each))
+factor_object <- as.factor(rep(1:10, each=9))
+
+col.classes <- brewer.pal(length(classes),"Dark2")
+col.objects <- brewer.pal(10,"Paired")
+cup <- c((n_each*3+1):(n_each*4))
+car <- c((n_each+1):(n_each*2))
+
 data_name <- c("real_seg", "real_grey", "real_color")
 best_iso <- c(9, 5, 5)
 best_lle <- c(18,24,15)
 
-## Sammon
+# Sammon
 for (name in data_name){
   load(file.path("data", "sammon", paste(name,".RData", sep=""))) # load sammon_real_...(seg, grey or color)
   points <- as.data.frame(get(paste("sammon", name, sep="_"))$points)
   p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
     geom_point(aes(colour = factor_class)) + 
-    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2")) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.classes) + 
     theme(legend.title=element_blank())
   ggsave(file.path("plots", "results_sammon", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
+  
+  p <- ggplot(points[cup,], aes(x=points[cup,1], y=points[cup,2])) + 
+    geom_point(aes(colour = factor_object)) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.objects) + 
+    theme(legend.title=element_blank())
+  ggsave(file.path("plots", "results_sammon", paste(name, "_cup.png", sep="")), plot = p, width = 7, height = 6)
+  
+  p <- ggplot(points[car,], aes(x=points[car,1], y=points[car,2])) + 
+    geom_point(aes(colour = factor_object)) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.objects) + 
+    theme(legend.title=element_blank())
+  ggsave(file.path("plots", "results_sammon", paste(name, "_car.png", sep="")), plot = p, width = 7, height = 6)
 }
 
-## Isomap
+# Isomap
 for (i in 1:length(data_name)){
   name = data_name[i]
   load(file.path("data", paste("test_isomap_", name , sep=""), paste("k", best_iso[i], ".RData", sep=""))) #load x_iso
   points <- as.data.frame(x_iso$points)
   p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
     geom_point(aes(colour = factor_class)) + guides(fill=guide_legend(title=NULL)) +
-    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2")) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.classes) + 
     theme(legend.title=element_blank())
   ggsave(file.path("plots", "results_isomap", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
+  
+  p <- ggplot(points[cup,], aes(x=points[cup,1], y=points[cup,2])) + 
+    geom_point(aes(colour = factor_object)) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.objects) + 
+    theme(legend.title=element_blank())
+  ggsave(file.path("plots", "results_isomap", paste(name, "_cup.png", sep="")), plot = p, width = 7, height = 6)
+  
+  p <- ggplot(points[car,], aes(x=points[car,1], y=points[car,2])) + 
+    geom_point(aes(colour = factor_object)) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.objects) + 
+    theme(legend.title=element_blank())
+  ggsave(file.path("plots", "results_isomap", paste(name, "_car.png", sep="")), plot = p, width = 7, height = 6)
 }
 
-## LLE
+# LLE
 for (i in 1:length(data_name)){
   name = data_name[i]
   load(file.path("data", "lle", paste(name, "_k", best_lle[i],".RData", sep=""))) # load x_lle
   points <- as.data.frame(x_lle$Y)
   p <- ggplot(points, aes(x=points[,1], y=points[,2])) + 
     geom_point(aes(colour = factor_class)) + 
-    xlab("") + ylab("") + scale_color_manual(values=brewer.pal(8, "Dark2")) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.classes) + 
     theme(legend.title=element_blank())
   ggsave(file.path("plots", "results_lle", paste(name, ".png", sep="")), plot = p, width = 7, height = 6)
+  
+  p <- ggplot(points[cup,], aes(x=points[cup,1], y=points[cup,2])) + 
+    geom_point(aes(colour = factor_object)) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.objects) + 
+    theme(legend.title=element_blank())
+  ggsave(file.path("plots", "results_lle", paste(name, "_cup.png", sep="")), plot = p, width = 7, height = 6)
+  
+  p <- ggplot(points[car,], aes(x=points[car,1], y=points[car,2])) + 
+    geom_point(aes(colour = factor_object)) + 
+    xlab("") + ylab("") + scale_color_manual(values=col.objects) + 
+    theme(legend.title=element_blank())
+  ggsave(file.path("plots", "results_lle", paste(name, "_car.png", sep="")), plot = p, width = 7, height = 6)
 }
